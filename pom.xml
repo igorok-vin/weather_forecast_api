@@ -16,4 +16,9 @@
 	<description>RootProject</description>
 	<packaging>pom</packaging>
 
+    <modules>
+        <module>WeatherNetworkApiCommon</module>
+		<module>WeatherNetworkApiService</module>
+    </modules>
+
 </project>
