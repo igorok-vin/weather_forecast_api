@@ -1,0 +1,13 @@
+Password for all users - admin2025
+
+System App
+Client ID: hnLqPPQqGogt7GtgIJbh
+Client Secret: YLnMa6solui0BAjG2pWkzpU4rtkDEvtWVAqiTddB
+
+Updater App
+Client ID: gukvoCJfYyC42YJHwUxn
+Client Secret: 982HzPYCbUEn8c12g7x3ieNT31xRCXALhiuVf4Vr
+
+Reader App
+Client ID: oTwZzfgrhfxngenlKJSe
+Client Secret: KGEZprmQ5DRUPYXnuYcrHcmzIZClywHd2t7A7H90

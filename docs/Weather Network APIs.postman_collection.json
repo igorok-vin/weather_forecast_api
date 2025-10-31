@@ -1,0 +1,1903 @@
+{
+	"info": {
+		"_postman_id": "b8679704-35d7-48a9-87d4-07e757e9f3d8",
+		"name": "Weather Network APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13308459"
+	},
+	"item": [
+		{
+			"name": "Locations APIs",
+			"item": [
+				{
+					"name": "Expect Status 201 Created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var template = `\r",
+									"<style type=\"text/css\">\r",
+									"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+									"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+									"    .tftable tr {background-color:#ffffff;}\r",
+									"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+									"    .tftable tr:hover {background-color:#e0ffff;}\r",
+									"</style>\r",
+									"\r",
+									"<table class=\"tftable\" border=\"1\">\r",
+									"    <tr>\r",
+									"        <th>ID</th>\r",
+									"        <th>Name</th>\r",
+									"    </tr>\r",
+									"    \r",
+									"    {{#each response}}\r",
+									"        <tr>\r",
+									"            <td>{{id}}</td>\r",
+									"            <td>{{name}}</td>\r",
+									"        </tr>\r",
+									"    {{/each}}\r",
+									"</table>\r",
+									"`;\r",
+									"\r",
+									"function constructVisualizerPayload() {\r",
+									"    return {response: pm.response.json()}\r",
+									"}\r",
+									"\r",
+									"pm.visualizer.set(template, constructVisualizerPayload());"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\":\"BFLNY_USA\",\r\n    \"city_name\":\"Buffalo\",\r\n    \"region_name\":\"New York\",\r\n    \"country_name\":\"United States of America\",\r\n    \"country_code\":\"US\",    \r\n    \"enabled\":true    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/locations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 200 OK All Locations(5 per page by default)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/v1/locations",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 400 BadRequest(Wrong parameters)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/v1/locations?pageNumber=0&pageSize=0&sortField=city_name",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "0"
+								},
+								{
+									"key": "sortField",
+									"value": "city_name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 404 Not Found",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/v1/locations/NYC_U",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations",
+								"NYC_U"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 200 OK By Code",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/v1/locations/NYC_USA",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations",
+								"NYC_USA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 200 OK",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\":\"DELHI_IN\",\r\n    \"city_name\":\"Delhi\",\r\n    \"region_name\":\"Delhi\",\r\n    \"country_name\":\"India\",\r\n    \"country_code\":\"IN\",    \r\n    \"enabled\":true    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/v1/locations",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 200 OK",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/v1/locations/NYC_USA",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations",
+								"NYC_USA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 404 Not Found",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/v1/locations/ADCV",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations",
+								"ADCV"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 200 OK All Locations + params+ filters(5 per page by default)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJndWt2b0NKZll5QzQyWUpId1V4biIsIm5iZiI6MTc2MTAyMTc5Niwic2NvcGUiOlsiVVBEQVRFUiJdLCJpc3MiOiJXZWF0aGVyIEFQSSBTZXJ2aWNlIGJ5IFNreSBMVEQuIiwibmFtZSI6IlVwZGF0ZXIgQXBwIiwiZXhwIjoxNzYxMDI1Mzk2LCJpYXQiOjE3NjEwMjE3OTYsImp0aSI6IjNlYWY1OTI1LTA3ZTItNDZkOC1hYzhiLWRjNGMwNjA2MzgyZSJ9.JbZjT9MFBLpoc9HehsoDjs1O8dedn5KGCHRy3PQhbBkjuKrUc3r05Puu9GPJBes5PLtqIHjOo4ll7SPFPc55NGLFzmWFx-Xgl7dz3PoDxgZAWXQBbFHoaYB_XJMfiBcqqbVQHo25ZQsLfn2lXmamcTVqoyOy-b5tD9svqojUzd46WobGQWZL_HrTuTdViq6_PBfvi6P0HJ1E_5l2elGsiSxtwJKUVQPzm4r0yC4_DTmPTlZhOAKwxTdtlxq7FfNFv0RoWEOH39c-_jQX0EB3BNjr6El1FdKmhZuoEOrOZJLflC8J0WPyBhCDLrrY5eBCqsQc6nzcLHcmqTCkiIAtFQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/v1/locations?pageNumber=1&pageSize=2&sortField=country_name&region_name=California&country_code=US&enabled=true",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "sortField",
+									"value": "country_name"
+								},
+								{
+									"key": "region_name",
+									"value": "California"
+								},
+								{
+									"key": "country_code",
+									"value": "US"
+								},
+								{
+									"key": "enabled",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 200 OK All Locations + filters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/v1/locations?sortField=country_name",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"locations"
+							],
+							"query": [
+								{
+									"key": "sortField",
+									"value": "country_name"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Realtime Weather APIs",
+			"item": [
+				{
+					"name": "Expect Status 200 OK",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-FORWARDED-FOR",
+								"value": "82.64.35.208",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/realtime",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"realtime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "400 Not Found Geolocation failed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-FORWARDED-FOR",
+								"value": "56.56.48.456",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/realtime",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"realtime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "404 Not Found",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-FORWARDED-FOR",
+								"value": "100.48.198.141",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/realtime",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"realtime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 200 Find By Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/v1/realtime/LACA_USA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"realtime",
+								"LACA_USA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 200 OK",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"temperature\": 37,\r\n  \"humidity\": 55,\r\n  \"precipitation\": 15,\r\n  \"status\": \"Cloudy\",\r\n  \"wind_speed\": 25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/realtime/LACA_USA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"realtime",
+								"LACA_USA"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Expect Status 400 Bad Request (Invalid Data)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"temperature\": 20,\r\n  \"humidity\": 30,\r\n  \"precipitation\": 25,\r\n  \"status\": \"Sunny\",\r\n  \"wind_speed\": 27\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/v1/realtime/LACA_USA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"v1",
+								"realtime",
+								"LACA_USA"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hourly Forecast APIs",
+			"item": [
+				{
+					"name": "Hourly Forecast by IP",
+					"item": [
+						{
+							"name": "Expect Status 200 OK",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Forwarded-For",
+										"value": "103.48.198.141",
+										"type": "text"
+									},
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/hourly",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 204 No Content",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-FORWARDED-FOR",
+										"value": "103.48.198.141",
+										"type": "text"
+									},
+									{
+										"key": "X-Current-Hour",
+										"value": "25",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/hourly",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 400 Bad Request",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-FORWARDED-FOR",
+										"value": "103.48.198.141",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/hourly",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 404 Not Found",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-FORWARDED-FOR",
+										"value": "109.48.198.141",
+										"type": "text"
+									},
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8080/v1/hourly",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"hourly"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Hourly Forecast by Location Code",
+					"item": [
+						{
+							"name": "Expect Status 200 OK",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/hourly/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 400 Bad Request",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/hourly/DELHI_ABC",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly",
+										"DELHI_ABC"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 204 No Content",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Current-Hour",
+										"value": "29",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/hourly/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 404 Not Found Copy",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/hourly/DELHI_ABC",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly",
+										"DELHI_ABC"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Hourly Forecast",
+					"item": [
+						{
+							"name": "Expect Status 400 Bad Request (No Data)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/hourly/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 400 Bad Request (Invalid Data)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"hour_of_day\": -8,\r\n    \"temperature\": 123,\r\n    \"precipitation\": 8588,\r\n    \"status\": \"\"\r\n  },\r\n  {\r\n    \"hour_of_day\": 9,\r\n    \"temperature\": 13,\r\n    \"precipitation\": 86,\r\n    \"status\": \"Cloudy\"\r\n  }\r\n]\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/hourly/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 404 Not Found",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"hour_of_day\": 8,\r\n    \"temperature\": 12,\r\n    \"precipitation\": 88,\r\n    \"status\": \"Cloudy\"\r\n  },\r\n  {\r\n    \"hour_of_day\": 9,\r\n    \"temperature\": 13,\r\n    \"precipitation\": 86,\r\n    \"status\": \"Cloudy\"\r\n  },\r\n  {\r\n    \"hour_of_day\": 10,\r\n    \"temperature\": 15,\r\n    \"precipitation\": 60,\r\n    \"status\": \"Sunny\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/hourly/DELHI_ABC",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly",
+										"DELHI_ABC"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 200 OK",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n\r\n   {\r\n    \"hour_of_day\": 16,\r\n    \"temperature\": 35,\r\n    \"precipitation\": 35,\r\n    \"status\": \"Sunny\"\r\n  },\r\n   {\r\n    \"hour_of_day\": 17,\r\n    \"temperature\": 27,\r\n    \"precipitation\": 55,\r\n    \"status\": \"Sunny\"\r\n  }\r\n\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/hourly/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Daily Forecast APIs",
+			"item": [
+				{
+					"name": "Daily Forecast by IP",
+					"item": [
+						{
+							"name": "Expect Status 200 OK",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Forwarded-For",
+										"value": "195.235.92.26",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/daily",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"daily"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 204 No Content Copy",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/v1/daily/LACA_USA",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"daily",
+										"LACA_USA"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 404 Not Found Copy",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/v1/daily/ABC",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"daily",
+										"ABC"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Daily Forecast APIs by Location Code",
+					"item": [
+						{
+							"name": "Expect Status 200 OK",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/daily/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"daily",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 404 Not Found",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/daily/DELHI_ABC",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"daily",
+										"DELHI_ABC"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Daily Forecast",
+					"item": [
+						{
+							"name": "Expect Status 200 OK",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"day_of_month\": 15,\r\n    \"month\": 7,\r\n    \"min_temperature\": 24,\r\n    \"max_temperature\": 26,\r\n    \"precipitation\": 60,\r\n    \"status\": \"Cloudy\"\r\n  },\r\n  {\r\n    \"day_of_month\": 16,\r\n    \"month\": 7,\r\n    \"min_temperature\": 28,\r\n    \"max_temperature\": 30,\r\n    \"precipitation\": 40,\r\n    \"status\": \"Sunny\"\r\n  },\r\n  {\r\n    \"day_of_month\": 17,\r\n    \"month\": 7,\r\n    \"min_temperature\": 22,\r\n    \"max_temperature\": 25,\r\n    \"precipitation\": 90,\r\n    \"status\": \"Rainy\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/daily/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"daily",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 400 Bad Request (No Data)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/hourly/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"hourly",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 400 Bad Request (Invalid Data)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"day_of_month\": 110,\r\n    \"month\": -2,\r\n    \"min_temperature\": 6,\r\n    \"max_temperature\": 12,\r\n    \"precipitation\": 60,\r\n    \"status\": \"Cloudy\"\r\n  },\r\n  {\r\n    \"day_of_month\": 11,\r\n    \"month\": 2,\r\n    \"min_temperature\": -107,\r\n    \"max_temperature\": 114,\r\n    \"precipitation\": 70,\r\n    \"status\": \"Sunny\"\r\n  },\r\n  {\r\n    \"day_of_month\": 12,\r\n    \"month\": 2,\r\n    \"min_temperature\": 6,\r\n    \"max_temperature\": 10,\r\n    \"precipitation\": -90,\r\n    \"status\": \"\"\r\n  }\r\n]\r\n\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/daily/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"daily",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 404 Not Found",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"day_of_month\": 15,\r\n    \"month\": 7,\r\n    \"min_temperature\": 24,\r\n    \"max_temperature\": 26,\r\n    \"precipitation\": 60,\r\n    \"status\": \"Cloudy\"\r\n  },\r\n  {\r\n    \"day_of_month\": 16,\r\n    \"month\": 7,\r\n    \"min_temperature\": 28,\r\n    \"max_temperature\": 30,\r\n    \"precipitation\": 40,\r\n    \"status\": \"Sunny\"\r\n  },\r\n  {\r\n    \"day_of_month\": 17,\r\n    \"month\": 7,\r\n    \"min_temperature\": 22,\r\n    \"max_temperature\": 25,\r\n    \"precipitation\": 90,\r\n    \"status\": \"Rainy\"\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/daily/DELHI_ABC",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"daily",
+										"DELHI_ABC"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Full Forecast APIs",
+			"item": [
+				{
+					"name": "Full Forecast by IP",
+					"item": [
+						{
+							"name": "Expect Status 200 OK",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJndWt2b0NKZll5QzQyWUpId1V4biIsIm5iZiI6MTc2MTAyMTc5Niwic2NvcGUiOlsiVVBEQVRFUiJdLCJpc3MiOiJXZWF0aGVyIEFQSSBTZXJ2aWNlIGJ5IFNreSBMVEQuIiwibmFtZSI6IlVwZGF0ZXIgQXBwIiwiZXhwIjoxNzYxMDI1Mzk2LCJpYXQiOjE3NjEwMjE3OTYsImp0aSI6IjNlYWY1OTI1LTA3ZTItNDZkOC1hYzhiLWRjNGMwNjA2MzgyZSJ9.JbZjT9MFBLpoc9HehsoDjs1O8dedn5KGCHRy3PQhbBkjuKrUc3r05Puu9GPJBes5PLtqIHjOo4ll7SPFPc55NGLFzmWFx-Xgl7dz3PoDxgZAWXQBbFHoaYB_XJMfiBcqqbVQHo25ZQsLfn2lXmamcTVqoyOy-b5tD9svqojUzd46WobGQWZL_HrTuTdViq6_PBfvi6P0HJ1E_5l2elGsiSxtwJKUVQPzm4r0yC4_DTmPTlZhOAKwxTdtlxq7FfNFv0RoWEOH39c-_jQX0EB3BNjr6El1FdKmhZuoEOrOZJLflC8J0WPyBhCDLrrY5eBCqsQc6nzcLHcmqTCkiIAtFQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Forwarded-For",
+										"value": "103.48.198.141",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/full",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 404 Not Found",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/v1/daily/ABC",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"daily",
+										"ABC"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Full Forecast by IP APIs by Location Code",
+					"item": [
+						{
+							"name": "Expect Status 200 OK",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/full/BNGL_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full",
+										"BNGL_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 404 Not Found",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/v1/full/ABC",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full",
+										"ABC"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Full Forecast",
+					"item": [
+						{
+							"name": "Expect Status 200 OK",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJndWt2b0NKZll5QzQyWUpId1V4biIsIm5iZiI6MTc2MDc1NzEwNSwic2NvcGUiOlsiVVBEQVRFUiJdLCJpc3MiOiJXZWF0aGVyIEFQSSBTZXJ2aWNlIGJ5IFNreSBMVEQuIiwibmFtZSI6IlVwZGF0ZXIgQXBwIiwiZXhwIjoxNzYwNzYwNzA1LCJpYXQiOjE3NjA3NTcxMDUsImp0aSI6IjkyNWNlOTU4LTgxNDUtNGRhMC04MmFiLTdiZTlmYTdlOGQwOCJ9.LyEPqgmrezcqc58Nrd9i9fhwkMx9CdWl52RHkuKc1Y9hQIUinyR-o5iXJRKmJFrp-7WfwkTBBWxmyrruTihkgwMsJD3FjTfHcVqdwSPn9CsONomsj4VDnSMPf_b8zva-7JidO2kEKDzf2KcDvtQTMN3-POcTC2lVH_RhC4GnqjbrlsczBL1dR-lrjYP6LRAUB3cwRfIrpYnlzQl2jiyrHZtbG8xCNcKejRjanywD5ftdPqrW0rnoPphkg8eR8VJEWP6ytgU3zSkwY9J7yo61d0tdiPbQY3UM6I_RwBx5_aYFg7I-HOjvrcPgT2TtmrapEM77VCuSMS8_oD7040K-yQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"realtime_weather\": {\r\n        \"temperature\": 40,\r\n        \"humidity\": 80,\r\n        \"precipitation\": 90,\r\n        \"status\": \"Rain\",\r\n        \"wind_speed\": 35,\r\n        \"last_updated\": \"2025-07-17 00:35\"\r\n    },\r\n    \"hourly_forecast\": [\r\n        {\r\n            \"hour_of_day\": 16,\r\n            \"temperature\": 25,\r\n            \"precipitation\": 95,\r\n            \"status\": \"Rain\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 17,\r\n            \"temperature\": 29,\r\n            \"precipitation\": 75,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 18,\r\n            \"temperature\": 32,\r\n            \"precipitation\": 42,\r\n            \"status\": \"Sunny\"\r\n        }\r\n    ],\r\n    \"daily_forecast\": [\r\n        {\r\n            \"day_of_month\": 15,\r\n            \"month\": 7,\r\n            \"min_temperature\": 24,\r\n            \"max_temperature\": 26,\r\n            \"precipitation\": 60,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"day_of_month\": 16,\r\n            \"month\": 7,\r\n            \"min_temperature\": 28,\r\n            \"max_temperature\": 30,\r\n            \"precipitation\": 40,\r\n            \"status\": \"Sunny\"\r\n        },\r\n        {\r\n            \"day_of_month\": 17,\r\n            \"month\": 7,\r\n            \"min_temperature\": 22,\r\n            \"max_temperature\": 25,\r\n            \"precipitation\": 85,\r\n            \"status\": \"Rainy\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/full/BNGL_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full",
+										"BNGL_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 400 Bad Request (No Hourly Data)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"realtime_weather\": {\r\n        \"temperature\": 35,\r\n        \"humidity\": 65,\r\n        \"precipitation\": 90,\r\n        \"status\": \"Raining\",\r\n        \"wind_speed\": 35,\r\n        \"last_updated\": \"2025-07-17 00:35\"\r\n    },\r\n    \"daily_forecast\": [\r\n        {\r\n            \"day_of_month\": 15,\r\n            \"month\": 7,\r\n            \"min_temperature\": 24,\r\n            \"max_temperature\": 26,\r\n            \"precipitation\": 60,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"day_of_month\": 16,\r\n            \"month\": 7,\r\n            \"min_temperature\": 28,\r\n            \"max_temperature\": 30,\r\n            \"precipitation\": 40,\r\n            \"status\": \"Sunny\"\r\n        },\r\n        {\r\n            \"day_of_month\": 17,\r\n            \"month\": 7,\r\n            \"min_temperature\": 22,\r\n            \"max_temperature\": 25,\r\n            \"precipitation\": 90,\r\n            \"status\": \"Rainy\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/full/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 400 Bad Request (Invalid Realtime Weather Data)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"realtime_weather\": {\r\n        \"temperature\": -35,\r\n        \"humidity\": 165,\r\n        \"precipitation\": 190,\r\n        \"status\": \"\",\r\n        \"wind_speed\": -35,\r\n        \"last_updated\": \"2025-07-17 00:35\"\r\n    },\r\n    \"hourly_forecast\": [\r\n        {\r\n            \"hour_of_day\": 16,\r\n            \"temperature\": 24,\r\n            \"precipitation\": 95,\r\n            \"status\": \"Rain\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 17,\r\n            \"temperature\": 27,\r\n            \"precipitation\": 75,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 18,\r\n            \"temperature\": 32,\r\n            \"precipitation\": 42,\r\n            \"status\": \"Sunny\"\r\n        }\r\n    ],\r\n    \"daily_forecast\": [\r\n        {\r\n            \"day_of_month\": 15,\r\n            \"month\": 7,\r\n            \"min_temperature\": 24,\r\n            \"max_temperature\": 26,\r\n            \"precipitation\": 60,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"day_of_month\": 16,\r\n            \"month\": 7,\r\n            \"min_temperature\": 28,\r\n            \"max_temperature\": 30,\r\n            \"precipitation\": 40,\r\n            \"status\": \"Sunny\"\r\n        },\r\n        {\r\n            \"day_of_month\": 17,\r\n            \"month\": 7,\r\n            \"min_temperature\": 22,\r\n            \"max_temperature\": 25,\r\n            \"precipitation\": 90,\r\n            \"status\": \"Rainy\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/full/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 400 Bad Request (No Daily Data)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJndWt2b0NKZll5QzQyWUpId1V4biIsIm5iZiI6MTc2MDc1NzEwNSwic2NvcGUiOlsiVVBEQVRFUiJdLCJpc3MiOiJXZWF0aGVyIEFQSSBTZXJ2aWNlIGJ5IFNreSBMVEQuIiwibmFtZSI6IlVwZGF0ZXIgQXBwIiwiZXhwIjoxNzYwNzYwNzA1LCJpYXQiOjE3NjA3NTcxMDUsImp0aSI6IjkyNWNlOTU4LTgxNDUtNGRhMC04MmFiLTdiZTlmYTdlOGQwOCJ9.LyEPqgmrezcqc58Nrd9i9fhwkMx9CdWl52RHkuKc1Y9hQIUinyR-o5iXJRKmJFrp-7WfwkTBBWxmyrruTihkgwMsJD3FjTfHcVqdwSPn9CsONomsj4VDnSMPf_b8zva-7JidO2kEKDzf2KcDvtQTMN3-POcTC2lVH_RhC4GnqjbrlsczBL1dR-lrjYP6LRAUB3cwRfIrpYnlzQl2jiyrHZtbG8xCNcKejRjanywD5ftdPqrW0rnoPphkg8eR8VJEWP6ytgU3zSkwY9J7yo61d0tdiPbQY3UM6I_RwBx5_aYFg7I-HOjvrcPgT2TtmrapEM77VCuSMS8_oD7040K-yQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"realtime_weather\": {\r\n        \"temperature\": 35,\r\n        \"humidity\": 65,\r\n        \"precipitation\": 90,\r\n        \"status\": \"Raining\",\r\n        \"wind_speed\": 35,\r\n        \"last_updated\": \"2025-07-17 00:35\"\r\n    },\r\n    \"hourly_forecast\": [\r\n        {\r\n            \"hour_of_day\": 16,\r\n            \"temperature\": 24,\r\n            \"precipitation\": 95,\r\n            \"status\": \"Rain\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 17,\r\n            \"temperature\": 27,\r\n            \"precipitation\": 75,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 18,\r\n            \"temperature\": 32,\r\n            \"precipitation\": 42,\r\n            \"status\": \"Sunny\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/full/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 200 OK (No Realtime Weather Data Provided)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJndWt2b0NKZll5QzQyWUpId1V4biIsIm5iZiI6MTc2MDc1NzEwNSwic2NvcGUiOlsiVVBEQVRFUiJdLCJpc3MiOiJXZWF0aGVyIEFQSSBTZXJ2aWNlIGJ5IFNreSBMVEQuIiwibmFtZSI6IlVwZGF0ZXIgQXBwIiwiZXhwIjoxNzYwNzYwNzA1LCJpYXQiOjE3NjA3NTcxMDUsImp0aSI6IjkyNWNlOTU4LTgxNDUtNGRhMC04MmFiLTdiZTlmYTdlOGQwOCJ9.LyEPqgmrezcqc58Nrd9i9fhwkMx9CdWl52RHkuKc1Y9hQIUinyR-o5iXJRKmJFrp-7WfwkTBBWxmyrruTihkgwMsJD3FjTfHcVqdwSPn9CsONomsj4VDnSMPf_b8zva-7JidO2kEKDzf2KcDvtQTMN3-POcTC2lVH_RhC4GnqjbrlsczBL1dR-lrjYP6LRAUB3cwRfIrpYnlzQl2jiyrHZtbG8xCNcKejRjanywD5ftdPqrW0rnoPphkg8eR8VJEWP6ytgU3zSkwY9J7yo61d0tdiPbQY3UM6I_RwBx5_aYFg7I-HOjvrcPgT2TtmrapEM77VCuSMS8_oD7040K-yQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \r\n    \"hourly_forecast\": [\r\n        {\r\n            \"hour_of_day\": 16,\r\n            \"temperature\": 31,\r\n            \"precipitation\": 90,\r\n            \"status\": \"Rain\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 17,\r\n            \"temperature\": 25,\r\n            \"precipitation\": 75,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 18,\r\n            \"temperature\": 32,\r\n            \"precipitation\": 42,\r\n            \"status\": \"Sunny\"\r\n        }\r\n    ],\r\n    \"daily_forecast\": [\r\n        {\r\n            \"day_of_month\": 15,\r\n            \"month\": 7,\r\n            \"min_temperature\": 23,\r\n            \"max_temperature\": 26,\r\n            \"precipitation\": 60,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"day_of_month\": 16,\r\n            \"month\": 7,\r\n            \"min_temperature\": 28,\r\n            \"max_temperature\": 30,\r\n            \"precipitation\": 40,\r\n            \"status\": \"Sunny\"\r\n        },\r\n        {\r\n            \"day_of_month\": 17,\r\n            \"month\": 7,\r\n            \"min_temperature\": 22,\r\n            \"max_temperature\": 25,\r\n            \"precipitation\": 90,\r\n            \"status\": \"Rainy\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/full/BNGL_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full",
+										"BNGL_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 400 Bad Request (Invalid Data)",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"realtime_weather\": {\r\n        \"temperature\": 35,\r\n        \"humidity\": 65,\r\n        \"precipitation\": -90,\r\n        \"status\": \"Raining\",\r\n        \"wind_speed\": 35,\r\n        \"last_updated\": \"2025-07-17 00:35\"\r\n    },\r\n    \"hourly_forecast\": [\r\n        {\r\n            \"hour_of_day\": 16,\r\n            \"temperature\": 24,\r\n            \"precipitation\": 95,\r\n            \"status\": \"Rain\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 17,\r\n            \"temperature\": 27,\r\n            \"precipitation\": 75,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 18,\r\n            \"temperature\": 32,\r\n            \"precipitation\": 42,\r\n            \"status\": \"\"\r\n        }\r\n    ],\r\n    \"daily_forecast\": [\r\n        {\r\n            \"day_of_month\": 15,\r\n            \"month\": 7,\r\n            \"min_temperature\": 24,\r\n            \"max_temperature\": 26,\r\n            \"precipitation\": 600,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"day_of_month\": 16,\r\n            \"month\": 7,\r\n            \"min_temperature\": 28,\r\n            \"max_temperature\": 30,\r\n            \"precipitation\": 40,\r\n            \"status\": \"Sunny\"\r\n        },\r\n        {\r\n            \"day_of_month\": 17,\r\n            \"month\": 7,\r\n            \"min_temperature\": 22,\r\n            \"max_temperature\": 25,\r\n            \"precipitation\": 90,\r\n            \"status\": \"Rainy\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/full/DELHI_IN",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full",
+										"DELHI_IN"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 404 Not Found",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "X-Current-Hour",
+										"value": "8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"realtime_weather\": {\r\n        \"temperature\": 35,\r\n        \"humidity\": 65,\r\n        \"precipitation\": 90,\r\n        \"status\": \"Raining\",\r\n        \"wind_speed\": 35,\r\n        \"last_updated\": \"2025-07-17 00:35\"\r\n    },\r\n    \"hourly_forecast\": [\r\n        {\r\n            \"hour_of_day\": 16,\r\n            \"temperature\": 24,\r\n            \"precipitation\": 95,\r\n            \"status\": \"Rain\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 17,\r\n            \"temperature\": 27,\r\n            \"precipitation\": 75,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"hour_of_day\": 18,\r\n            \"temperature\": 32,\r\n            \"precipitation\": 42,\r\n            \"status\": \"Sunny\"\r\n        }\r\n    ],\r\n    \"daily_forecast\": [\r\n        {\r\n            \"day_of_month\": 15,\r\n            \"month\": 7,\r\n            \"min_temperature\": 24,\r\n            \"max_temperature\": 26,\r\n            \"precipitation\": 60,\r\n            \"status\": \"Cloudy\"\r\n        },\r\n        {\r\n            \"day_of_month\": 16,\r\n            \"month\": 7,\r\n            \"min_temperature\": 28,\r\n            \"max_temperature\": 30,\r\n            \"precipitation\": 40,\r\n            \"status\": \"Sunny\"\r\n        },\r\n        {\r\n            \"day_of_month\": 17,\r\n            \"month\": 7,\r\n            \"min_temperature\": 22,\r\n            \"max_temperature\": 25,\r\n            \"precipitation\": 90,\r\n            \"status\": \"Rainy\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8081/v1/full/DELHI_ABC",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"full",
+										"DELHI_ABC"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Base URI",
+			"item": [
+				{
+					"name": "Base URI Test",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081",
+							"host": [
+								"localhost"
+							],
+							"port": "8081"
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Security",
+			"item": [
+				{
+					"name": "List Locations",
+					"item": [
+						{
+							"name": "Status 200 OK. All Locations with Scope Reader",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJndWt2b0NKZll5QzQyWUpId1V4biIsIm5iZiI6MTc2MDUwNTIxOCwic2NvcGUiOlsiVVBEQVRFUiJdLCJpc3MiOiJXZWF0aGVyIEFQSSBTZXJ2aWNlIGJ5IFNreSBMVEQuIiwibmFtZSI6IlVwZGF0ZXIgQXBwIiwiZXhwIjoxNzYwNTA4ODE4LCJpYXQiOjE3NjA1MDUyMTgsImp0aSI6IjM3MWFhYmMzLWJlZDgtNDYwZC05YmU4LThkYTYzNjZkMGQwZiJ9.RRMhi2JM4K7ZKaijR-CAcR7Hu1HloOYY_Yff5L3sLIfhACQ-DSuUCEYCtb4-RzeQZsDAhbwHgGevz_5B6Bvn_-WBlxf4prwXordSlMFIqRxN6OYq17UVD71n2ILJNgvFep4QEd1-f1AcYFw5ma20CLzNpDvApyN5nAW2SRVbDgG7dZAugB0-OSyvo2uasLlx9fIU1KoJoXJIzWUv1FRA8kP6oHH7w47cFmO5nqAyKkkBF-oOalRYOq58HXHvgKpcHhCoDw0XWFl3DiXGuLQZkPaZYQC19JnpOBEqoS_IkogiZ2Er_MVKhCbn2ytUemPj_tz3k9dY_htqxsQbn6jGWw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "localhost:8081/v1/locations?pageNumber=1&pageSize=2&sortField=country_name&region_name=California&country_code=US&enabled=true",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"locations"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "1"
+										},
+										{
+											"key": "pageSize",
+											"value": "2"
+										},
+										{
+											"key": "sortField",
+											"value": "country_name"
+										},
+										{
+											"key": "region_name",
+											"value": "California"
+										},
+										{
+											"key": "country_code",
+											"value": "US"
+										},
+										{
+											"key": "enabled",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Expect Status 201 Created Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var template = `\r",
+											"<style type=\"text/css\">\r",
+											"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+											"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+											"    .tftable tr {background-color:#ffffff;}\r",
+											"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+											"    .tftable tr:hover {background-color:#e0ffff;}\r",
+											"</style>\r",
+											"\r",
+											"<table class=\"tftable\" border=\"1\">\r",
+											"    <tr>\r",
+											"        <th>ID</th>\r",
+											"        <th>Name</th>\r",
+											"    </tr>\r",
+											"    \r",
+											"    {{#each response}}\r",
+											"        <tr>\r",
+											"            <td>{{id}}</td>\r",
+											"            <td>{{name}}</td>\r",
+											"        </tr>\r",
+											"    {{/each}}\r",
+											"</table>\r",
+											"`;\r",
+											"\r",
+											"function constructVisualizerPayload() {\r",
+											"    return {response: pm.response.json()}\r",
+											"}\r",
+											"\r",
+											"pm.visualizer.set(template, constructVisualizerPayload());"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJndWt2b0NKZll5QzQyWUpId1V4biIsIm5iZiI6MTc2MDUwNTIxOCwic2NvcGUiOlsiVVBEQVRFUiJdLCJpc3MiOiJXZWF0aGVyIEFQSSBTZXJ2aWNlIGJ5IFNreSBMVEQuIiwibmFtZSI6IlVwZGF0ZXIgQXBwIiwiZXhwIjoxNzYwNTA4ODE4LCJpYXQiOjE3NjA1MDUyMTgsImp0aSI6IjM3MWFhYmMzLWJlZDgtNDYwZC05YmU4LThkYTYzNjZkMGQwZiJ9.RRMhi2JM4K7ZKaijR-CAcR7Hu1HloOYY_Yff5L3sLIfhACQ-DSuUCEYCtb4-RzeQZsDAhbwHgGevz_5B6Bvn_-WBlxf4prwXordSlMFIqRxN6OYq17UVD71n2ILJNgvFep4QEd1-f1AcYFw5ma20CLzNpDvApyN5nAW2SRVbDgG7dZAugB0-OSyvo2uasLlx9fIU1KoJoXJIzWUv1FRA8kP6oHH7w47cFmO5nqAyKkkBF-oOalRYOq58HXHvgKpcHhCoDw0XWFl3DiXGuLQZkPaZYQC19JnpOBEqoS_IkogiZ2Er_MVKhCbn2ytUemPj_tz3k9dY_htqxsQbn6jGWw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"code\":\"BFLNY_USA\",\r\n    \"city_name\":\"Buffalo\",\r\n    \"region_name\":\"New York\",\r\n    \"country_name\":\"United States of America\",\r\n    \"country_code\":\"US\",    \r\n    \"enabled\":true    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/v1/locations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"v1",
+										"locations"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get access token success",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "KGEZprmQ5DRUPYXnuYcrHcmzIZClywHd2t7A7H90",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "oTwZzfgrhfxngenlKJSe",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8081/oauth2/token",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get access token failure",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "kjbb",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "kmvb",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "5646nhn",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8081/oauth2/token",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

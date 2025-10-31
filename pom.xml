@@ -19,6 +19,7 @@
     <modules>
         <module>WeatherNetworkApiCommon</module>
 		<module>WeatherNetworkApiService</module>
+		<module>WeatherApiClientManager</module>
     </modules>
 
 </project>
