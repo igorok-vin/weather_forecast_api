@@ -7,11 +7,12 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "weather_daily")
-public class DailyWeather {
+public class DailyWeather implements Serializable {
 
     @EmbeddedId
     private DailyWeatherId id = new DailyWeatherId();

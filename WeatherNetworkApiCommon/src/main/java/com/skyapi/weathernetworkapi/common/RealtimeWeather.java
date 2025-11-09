@@ -5,13 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
 @Table(name="realtime_weather")
-public class RealtimeWeather {
+public class RealtimeWeather implements Serializable {
     @Id
     @Column(name="location_code")
     @JsonIgnore

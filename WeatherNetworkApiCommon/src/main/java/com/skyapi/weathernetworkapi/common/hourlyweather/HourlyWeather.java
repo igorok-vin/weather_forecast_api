@@ -9,11 +9,12 @@ import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "weather_hourly")
-public class HourlyWeather {
+public class HourlyWeather implements Serializable {
 
     @EmbeddedId
     private HourlyWeatherId id = new HourlyWeatherId();

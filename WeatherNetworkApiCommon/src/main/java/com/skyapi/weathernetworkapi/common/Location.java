@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +19,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "locations")
 @JsonPropertyOrder({"code", "city_name", "region_name", "country_code", "country_name", "enabled"})
-public class Location {
+public class Location implements Serializable {
 
     @Id
     @Column(length = 10, nullable = false, unique = true)
