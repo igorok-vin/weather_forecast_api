@@ -138,7 +138,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         error.setTimestamp(LocalDateTime.now());
         error.setStatus(HttpStatus.BAD_REQUEST.value());;
-        error.addError(ex.getMessage());
+        error.addError("Incorrect input for the request ");
         error.setPath(servletRequest.getServletPath());
 
         LOGGER.error(ex.getMessage(), ex);
